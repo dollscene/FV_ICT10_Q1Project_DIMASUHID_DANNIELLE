@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breworries Cafe</title>
+
+ 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+  <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+  <style>
+    body {
+      background: #fff0f6;
+      font-family: 'Poppins', sans-serif;
+      color: #5a4a4a;
+    }
+    .navbar {
+      background-color: #ffb6c1;
+    }
+    .navbar-brand {
+      color: #fff !important;
+      font-weight: bold;
+    }
+    .nav-link {
+      color: #fff !important;
+      font-weight: 500;
+    }
+    .header {
+      background: linear-gradient(135deg, #ffccdc, #ffb6c1);
+      color: #5a4a4a;
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #d63384;
+    }
+    .menu-card, .order-card, .contact-card {
+      background: #ffffff;
+      border-radius: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 25px;
+      margin-top: 30px;
+      border: 2px solid #ffd6e8;
+    }
+    h3 {
+      color: #d63384;
+      font-weight: bold;
+    }
+    .footer {
+      text-align: center;
+      padding: 18px;
+      margin-top: 25px;
+      background: #ffe6f2;
+      border-radius: 25px;
+      border: 1.5px solid #ffd6e8;
+    }
+    .btn-custom {
+      background-color: #ff99c8;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 30px;
+      padding: 10px 25px;
+    }
+    .btn-custom:hover {
+      background-color: #ff70a6;
+    }
+    #order-summary pre, #contact-result pre {
+      background: #fff6fb;
+      border: 1px dashed #d17a7a;
+      padding: 15px;
+      border-radius: 12px;
+      white-space: pre-wrap;
+    }
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">☕ Breworries</a>
+      <div>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('home')">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('order')">Order Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('contact')">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+ 
+  <section id="home" class="active">
+    <div class="header">
+      <h1>☕ Breworries</h1>
+      <p>Owner: <strong>Luna Dimasuhid</strong></p>
+      <p>Since 2024</p>
+    </div>
+
+    <div class="container">
+      <div class="menu-card">
+        <h3 class="mb-3">Menu Pricelist</h3>
+        <table class="table table-hover text-center">
+          <thead class="table-light">
+            <tr><th>Product Name</th><th>Price (₱)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Ham and Cheese Sandwich</td><td>₱100.00</td></tr>
+            <tr><td>Croissant</td><td>₱80.00</td></tr>
+            <tr><td>Apple Tart</td><td>₱95.00</td></tr>
+            <tr><td>Cinnamon Pie</td><td>₱120.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="footer">
+        <p>Open: 9:00 AM - 9:00 PM</p>
+        <button class="btn btn-custom" onclick="showSection('order')">Order Now</button>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="order">
+    <div class="container">
+      <div class="order-card">
+        <h2 class="text-center mb-4" style="color:#d63384;">Online Food Delivery</h2>
+        <h4>Menu:</h4>
+
+        <div>
+          <input type="checkbox" id="food1" value="Ham and Cheese Sandwich"> Ham and Cheese Sandwich - ₱100<br>
+          <input type="checkbox" id="food2" value="Croissant"> Croissant - ₱80<br>
+          <input type="checkbox" id="food3" value="Apple Tart"> Apple Tart - ₱95<br>
+          <input type="checkbox" id="food4" value="Cinnamon Pie"> Cinnamon Pie - ₱120<br>
+        </div><br>
+
+        <label>Name:</label>
+        <input type="text" id="cust_name" class="form-control mb-2">
+        <label>Address:</label>
+        <input type="text" id="cust_address" class="form-control mb-2">
+        <label>Contact Number:</label>
+        <input type="text" id="cust_number" class="form-control mb-3">
+
+        <button class="btn btn-custom" py-click="create_order">Create Order</button>
+
+        <div id="order-summary" class="mt-4"></div>
+      </div>
+    </div>
+  </section>
+
+ 
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <h2 class="text-center" style="color:#d63384;">Contact Us</h2>
+        <p class="text-center">We’d love to hear from you!</p>
+        <label>Name:</label>
+        <input type="text" id="name" class="form-control mb-2">
+        <label>Email:</label>
+        <input type="text" id="email" class="form-control mb-2">
+        <label>Message:</label>
+        <textarea id="message" rows="4" class="form-control mb-3"></textarea>
+        <button class="btn btn-custom" py-click="send_message">Send Message</button>
+
+        <div id="contact-result" class="mt-3"></div>
+      </div>
+    </div>
+  </section>
+
+ 
+  <script>
+    function showSection(id) {
+      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+  </script>
+
+  <py-config>
+    [[fetch]]
+    files = ["main9.py"]
+  </py-config>
+  <py-script src="main9.py"></py-script>
+
+</body>
+</html>
